@@ -1,0 +1,117 @@
+
+{% load static %}
+
+
+{% block content %}
+    {% for category in categoriesPro %}
+        
+        {% if category_id == category.3 and page_c.language == category.2 %}
+            <div class="container-fluid pt-5 pb-0">
+                <div class="row justify-content-center p-3" style="text-align: center">
+                    <h1 style="text-transform: uppercase"> {{category.1}} </h1>
+                </div>
+                <div class="row justify-content-center pt-2 pb-0">
+                    <img src="{% static 'images/separador.png'%}">
+                </div>
+                <div class="row justify-content-center p-lg-5 py-5 px-2" style="text-align: center">
+                    <div class="col-xl-4">
+                        <h3 style="color: #6c6e6f; font-size: 19px !important;"> {{category.4}} </h3>
+                    </div>   
+                </div>
+            
+            </div>
+        {% endif %}
+        {% for proyecto in proyectos %}
+            
+            {% if category_id == category.3 and category_id == proyecto.categories.slug and page_c.language == proyecto.language  and proyecto.categories.language == category.2 %}
+                
+                <div id="proyects" class="container py-3 ">
+                    
+                    <div id="frame" class="container-fluid px-5">
+                        <div  class="row justify-content-center pb-md-5 pb-lg-0">
+                            <h3 class=" py-3 py-lg-0 text-center "> {{proyecto.title}} </h3>
+                        </div>
+                    </div>
+                                                    <!--
+                                    <img id="imgpc" src="{{proyecto.image.url}}" class="img-fluid" alt="Responsive image"/>
+                                    <img id="imgmovil"src="{{proyecto.imageM.url}}" class="img-fluid" alt="Responsive image"/>
+                                    <img  id="imgtablet" src="{{proyecto.imaget.url}}" class="img-fluid" alt="Responsive image"/>-->
+
+                    {% if not proyecto.app and category.0 == proyecto.categories.id %}
+                        <div class="container-fluid pt-0" style="background: #f9f9f9" >
+                            <div class="row justify-content-center">
+                                <div id="framepc" class="container">
+                                    <div id="imgpc" class="container">
+                                        <img src="{{proyecto.image.url}}" class="img-fluid" alt="Responsive image"/>
+                                    </div>
+                                    <div id="imgmovil" class="container">
+
+                                        <img src="{{proyecto.imageM.url}}" class="img-fluid" alt="Responsive image"/>
+                                    </div>
+                                    <div id="imgtablet" class="container">
+                                            <img src="{{proyecto.imaget.url}}" class="img-fluid" alt="Responsive image"/>
+                                    </div>
+                                    <img id="movil" src="{% static 'images/iphone.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img id="notch" src="{% static 'images/notch.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img id="tablet" src="{% static 'images/ipad.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img src="{% static 'images/Devices_responsive.png' %}" class="img-fluid" alt="Responsive image"/>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="row justify-content-center"> 
+                                <div class="col-12 col-lg-8 pt-0"> 
+                                    <h5 class="text-center" style="color: #285E7A !important; font-style: normal !important; font-size: 16px !important; font-weight:400"> {{proyecto.content}} </h5>
+                                </div>
+                            </div> 
+                        </div>
+                    {% endif %}
+                    {% if proyecto.app and category_id == proyecto.categories.slug and page_c.language == proyecto.categories.language and  proyecto.categories.language == category.2 %}
+                        <div class="container-fluid pt-0" style="background: #f9f9f9">
+                            <div class="row justify-content-center">
+                                <div id="frameapp" class="container">
+                                    <div id="imgapp1" class="container">
+                                        <img src="{{proyecto.image.url}}" class="img-fluid" alt="Responsive image"/>
+                                    </div>
+                                    <div id="imgapp2" class="container">
+
+                                        <img src="{{proyecto.imageM.url}}" class="img-fluid" alt="Responsive image"/>
+                                    </div>
+                                    <div id="imgapp3" class="container">
+                                            <img src="{{proyecto.imaget.url}}" class="img-fluid" alt="Responsive image"/>
+                                    </div>
+                                    <img id="apps" src="{% static 'images/iphone.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img id="notchapp1" src="{% static 'images/notch.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img id="notchapp2" src="{% static 'images/notch.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img id="notchapp3" src="{% static 'images/notch.png' %}" class="img-fluid" alt="Responsive image"/>
+                                    <img src="{% static 'images/moviles.png' %}" class="img-fluid" alt="Responsive image"/>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center"> 
+                                <div class="col-12 col-lg-8 pt-0"> 
+                                    <h5 class="text-center" style="color: #285E7A !important; font-style: normal !important; font-size: 16px !important; font-weight:400"> {{proyecto.content}} </h5>
+                                </div>
+                            </div> 
+                        </div>
+                    {% endif %}
+                    <div class="row justify-content-center"> 
+                        <div class="container  pt-5"> 
+                            <div class="col text-center pb-5"> 
+                                {% if proyecto.url != "" %}
+
+                                    {% if page_c.language == 'es' %}
+                                        <a class="btn btn-info" href={{proyecto.url}} role="button" target="_blank" style="border: 1px solid #285E7A; background-color: #285E7A; color: white; padding: 5px 25px; width: initial; text-align: center; border-radius: 23px; font-size: 16px; text-decoration: none; margin: auto;">página web</a>
+                                    {% endif %}
+                                    {% if page_c.language == 'en' %}
+                                        <a class="btn btn-info" href={{proyecto.url}} role="button" target="_blank" style="border: 1px solid #285E7A; background-color: #285E7A; color: white; padding: 5px 25px; width: initial; text-align: center; border-radius: 23px; font-size: 16px; text-decoration: none; margin: auto;">web</a>
+                                    {% endif %}
+                                {% endif %} 
+                            </div>
+                        </div>
+                    </div>  
+                </div> 
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

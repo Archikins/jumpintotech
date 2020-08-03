@@ -1,0 +1,25 @@
+
+{% load static %}
+{% block content %}
+    <div>
+        {% include 'cabecera.html'%}
+        <div class="container-fluid justify-content-center p-5" style="width:90%">
+            <div class="row px-xl-5 px-lg-5 py-xl-2 py-lg-2 px-md-4 py-md-1 p-sm-0 p-0" >
+                {% for category in categoriesPro %}
+                    {% for tipos in tipoproyectos %}
+                        {% if category.1 == tipos.title and page_c.language == tipos.language and page_c.language == category.2%}
+                            <div class="col-12 col-md-3 w-100">
+                                <div class="card border-0"style='background: #f9f9f9; cursor: pointer'>
+                                    <a href="{% url 'pagina2' page_c.language page_c.slug category.3 %}" ><img class="card-img-top" src="{{tipos.image.url}}" alt="Card image cap"  ></a>
+                                    <div class="card-body pb-5">
+                                        <h5 class="card-title text-center px-0" style="font-size: 17px !important;line-height: 24px; font-weight: bold; ">{{tipos.title}}</h5>   
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

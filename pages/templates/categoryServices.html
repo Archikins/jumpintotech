@@ -1,0 +1,116 @@
+{% load static %}
+{% block content %}
+
+    <div id="modal2" style="display:none; background-color:rgba(41, 95, 123, 0.95)">
+        <div class="row justify-content-center pb-5" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                
+
+            <form action="" method="POST" id="form_contacto2" style="padding-top:40%; background: rgb(0,0,0,0); z-index: 50 !important; margin: 0 auto !important">
+            
+                {% csrf_token %}
+                {{form.as_ul}}
+                
+                <div class="form-row justify-content-center">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="contact" class="overlay">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+
+        {% include 'contacto.html' %}
+
+        <script>
+        /* Open when someone clicks on the span element */
+        function openNav2() {
+            document.getElementById("contact").style.width = "100%";
+        }
+
+        /* Close when someone clicks on the "x" symbol inside the overlay */
+        function closeNav2() {
+            document.getElementById("contact").style.width = "0%";
+        }
+        </script>
+    </div>
+    
+    {% for category in categoriesSer %}
+        {% if category_id ==  category.3 %}
+            <div class="container-fluid">
+                <div class="row justify-content-center pt-5">
+                    <h1 class="titulo negrita azul"style="text-transform: uppercase;"> {{category.1}} </h1>
+                </div>
+                <div class="row justify-content-center py-0 px-3">
+                    <h5 class="text-center" style="text-transform: uppercase;     font-size: 17px !important;     font-weight: bold;"> {{category.4}} </h5>
+                </div>
+                <div class="row justify-content-center p-lg-5 px-2 py-4 ">
+                    <div class="col-md-7">
+                        <p class="text-center p-0 " style="color: #285e7a;font-weight: 400; font-size: 21px !important; text-transform: initial;"> {{category.5}}
+                        </p>
+                    </div>
+                </div>
+                <div class="row justify-content-center pt-4 pb-0">
+                    <h3 class="text-center pb-0" style="font-size: 29px; letter-spacing: 0; line-height: normal;     font-weight: bold;"> {{category.6}} </h3>
+                </div>
+                <div class="row justify-content-center p-0">
+                    <h5 class="text-center pb-5 pt-0 px-4" style="    font-size: 18px;text-transform: uppercase;color: #285E7A; font-weight: bold;"> {{category.7}} </h5>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    <div class="container-fluid justify-content-center px-lg-5 px-0" >
+        <div class="row justify-content-center mx-5 px-lg-4  px-0">
+            <div class="card-deck px-lg-5 px-0 mx-0 w-75">
+                {% for servicio in servicios %}
+                    {% for category in categoriesSer %} 
+                        {% if category_id == category.3 and category.0 == servicio.categories.id %}
+                                <div class="card border-0 px-lg-0 mx-2 "style='list-style: none;display: inline-block;float: none;max-width: 320px;border-radius: 1em;background-color: #FFFFFF;box-shadow: 0 0 3em 0 rgba(0,0,0,0.08);text-align: center;vertical-align: top;'>
+                                    <div class="card-body px-2">
+                                        <h5 class="card-title text-center pt-3" style="font-size: 18px;color: #285E7A;font-weight: bold;padding-bottom: 0.5em;padding-top: 0;">{{servicio.title}}</h5>
+                                        <p class="card-text text-center pb-3 px-2" style="font-size: 14px;letter-spacing: 0;line-height: 22px; color: #A6A6A6;">{{servicio.content}}</p> 
+                                        {% if page_c.language == 'es'%}
+                                            <a ><button type="button" onclick="openNav2()" class="btn btn-info m-auto border-0" style="background: #285E7A; color: white; opacity: 0.6; border-radius: 1.2em;; text-decoration: none; transition: ease all 0.4s; margin-bottom: 10px; margin-top: 0;font-size: 14px !important; white-space: pre;"> Solicitar presupuesto </button> </a>  
+                                        {% endif %}
+                                        {% if page_c.language == 'en'%}
+                                            <a ><button type="button" onclick="openNav2()" class="btn btn-info m-auto border-0" style="background: #285E7A; color: white; opacity: 0.6; border-radius: 1.2em; text-decoration: none; transition: ease all 0.4s; margin-bottom: 10px; margin-top: 0;font-size: 14px !important; white-space:pre;"> Ask for your budget </button> </a>  
+                                        {% endif %}
+                                    </div>
+                                </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid justify-content-center p-0 pb-5">
+        {% if lan == "en" %}
+            <h2 class="text-center p-lg-5 px-0" style="font-size: 19px !important; text-transform: uppercase; color: #285E7A; font-weight: bold; padding-top:5% !important; padding-bottom:5% !important"> LOOKING FOR ANOTHER SERVICE? </h2>
+        {% endif %}
+        {% if lan == "es" %}
+    
+            <h2 class="text-center p-lg-5 px-0" style="font-size: 19px !important; text-transform: uppercase; color: #285E7A; font-weight: bold; padding-top:5% !important; padding-bottom:5% !important"> ¿Necesitas algún otro servicio? </h2>
+        {% endif %}
+        <div class="container-fluid justify-content-center p-0 m-0">
+            <div class="row justify-content-center p-0 m-0 px-lg-3 mx-lg-5">
+                <div class="card-deck px-0 m-0 mr-lg-0 mr-4 w-75">
+                    {% for category in categoriesSer %}
+                        {% for servicio in tiposervicios %}   
+                            {% if category.0 == servicio.id and page_c.language == servicio.language and category_id != servicio.slug %}
+                                
+                                <div class="card px-1 pt-4 pb-0 mx-3" style="max-width: 350px;border-radius: 1em;background-color: #FFFFFF;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);text-align: center;vertical-align: top;width: 100%;" >
+                                    <img id="imgSer" class="card-img-top" src="{{servicio.image.url}}" alt="Card image cap"  >
+                                    <div class="card-body px-0 px-0 mx-auto">
+                                        <h5 class="card-title text-center pb-0 pt-0" style="font-size: 18px; color: #285E7A;  font-weight: bold">{{servicio.title}}</h5> 
+                                        <h5 class="card-title text-center pb-1 pt-0 px-2" style="color: #285E7A;  font-size: 16px;  line-height: 1.5em;text-align: center;font-weight: 400; ">{{servicio.content}}</h5>
+                                        <a href="{% url 'pagina2' page_c.language page_c.slug category.3 %}" class="py-0"><button type="button" class="btn btn-info border-0" style="background: #285E7A; color: white; opacity: 0.6; border-radius: 1.2em; padding: 0.4em 1em; text-decoration: none; transition: ease all 0.4s; margin-bottom: 10px; margin-top: 0;font-size: 16px;"> + info </button> </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

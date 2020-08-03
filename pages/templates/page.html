@@ -1,0 +1,42 @@
+{% extends 'layout.html'%}
+
+{% block title %} {{page_c.1}} {% endblock %}
+
+{% block content %}
+     {{page.content|safe}} 
+     {% if page_c.slug == "proyectos" or page_c.slug == "projects" %}
+          {% if category_id %}
+               {% include 'categoryProyects.html'%}
+          {% else %}
+               {% include 'Proyectos.html'%}
+          {% endif %}       
+     {% endif %}
+     {% if page_c.slug == "inicio" or page_c.slug == "home" %}
+          {% include 'index.html'%}
+     {% endif %}
+     {% if page_c.slug == "como-trabajamos" or page_c.slug == "our-philosophy" %}
+          {% include 'filosofia.html'%}
+     {% endif %}
+     {% if page_c.slug == "services" or page_c.slug == "servicios" %}
+          {% if category_id%}
+               {% include 'categoryServices.html'%}
+          {% else %}
+               {% include 'servicios.html'%}
+          {% endif %}       
+     {% endif %}
+     {% if page_c.slug == "equipo" or page_c.slug == "team" %}
+          {% include 'equipo.html'%}
+     {% endif %}
+     {% if page_c.slug == "news" or page_c.slug == "noticias" %}
+          {% if category_id%}
+               {% include 'blog.html'%}
+          {% else %}
+               {% include 'noticias.html'%}
+          {% endif %} 
+     {% endif %}
+     {% if page_c.slug == "contacto" or page_c.slug == "contact" %}
+          {% include 'contacto.html'%}
+     {% endif %}
+
+     
+{% endblock %}

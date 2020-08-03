@@ -1,0 +1,148 @@
+{% load static %}
+
+
+{% block content %}
+    
+    <div>
+        
+        {% include 'cabecera.html'%}
+    </div>
+
+    <div class="container-fluid w-100 pb-5">
+        {% if page_c.language == 'es'%}
+            <div  id="imggrafica"class="row justify-content-center py-2">
+                <img  class="img-fluid" src="{% static 'images/Filo espanol.png'%}" style="max-height: 400px">
+            </div>
+        {% endif %}
+        {% if page_c.language == 'en'%}
+            <div  id="imggrafica"class="row justify-content-center py-2">
+                <img  class="img-fluid" src="{% static 'images/Filo ingles.png'%}" style="max-height: 400px">
+            </div>
+        {% endif %}
+    </div>
+    
+    <div id="carouselExampleIndicators" class="carousel slide py-5" data-ride="carousel" data-interval="0"  style="padding-bottom:5% !important">
+
+        <nav id="menufilo" class="navscroll navbar navbar-expand-lg sticky-top navbar-down navbar-light bg-light  pt-3" >
+            <script>
+                $(function (){
+                    $(window).scroll(function(){
+                    if ($(this).scrollTop() > 550) {
+                        $('#menufilo').addClass("azul");
+                        $('.card-body').addClass("azul2");
+                        $('.card-img-top').addClass("azul3");
+                        $('.card').addClass("azul4");
+                    } else {
+                        $("#menufilo").removeClass("azul");
+                        $('.card-body').removeClass("azul2");
+                        $('.card-img-top').removeClass("azul3");
+                        $('.card').removeClass("azul4");
+                        }
+                    });
+                });
+            </script>
+            <div id="filo" class="navbar  mr-auto mx-auto p-0 m-0" id="navbarNav">
+                <ul class="nav mr-auto mx-auto p-0 m-0 d-flex justify-content-center flex-nowrap">
+                    {% for paso in pasos %}
+                        {% if paso.order == 0 and paso.language == page_c.language %}
+                            <li class="nav-item px-0 py-0 m-0" style="background:trasnparent; cursor: pointer">
+                                <a class="nav-link active" data-toggle="carousel-indicators" data-target="#carouselExampleIndicators" data-slide-to={{paso.order}} style="z-index:0; padding: 0 !important; margin: 0 !important">
+                                    <div class="card border-0 p-0" id='card{{paso.order}}' style="cursor: pointer;">
+                                        <img class="card-img-top img-fluid" src="{{paso.image.url}}" style="background-color: #f9f9f9; height: 2rem;">
+                                        <div class="card-body " style="background-color:#f9f9f9">
+                                            <h5 class="card-title" style="margin:0;padding:0; font-size:16px">{{paso.title}}</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if paso.order != 0 and paso.language == page_c.language %}
+                            <li class="nav-item px-0 p-0 m-0" style="background:transparent; cursor: pointer">
+                                <a class="nav-link" data-toggle="carousel-indicators" data-target="#carouselExampleIndicators" data-slide-to={{paso.order}} style="z-index:0; padding: 0 !important; margin: 0 !important">
+                                    <div class="card border-0 p-0 nav-link" id='card{{paso.order}}' style="cursor: pointer;">
+                                        <img class="card-img-top" src="{{paso.image.url}}" style="background-color: #f9f9f9; height: 2rem; ">
+                                        <div class="card-body" style="background-color:#f9f9f9">
+                                            <h5 class="card-title" style=" margin:0;padding:0; font-size:16px;">{{paso.title}}</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+
+                    {% endfor %}
+                    
+                    <script>
+                        $(".nav .nav-link").on("click", function(){
+                            $(".nav").find(".active").removeClass("active");
+                            $(this).addClass("active");
+                        });
+                    </script>
+                </ul>
+            </div>
+        </nav>
+    
+    
+        
+        <ol id="carousel-filo" class="carousel-indicators py-5" style="margin-bottom:4% !important">
+            {% for paso in pasos %}
+                {% if paso.language == lan%}
+                    {% if paso.order == 0 %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to={{paso.order}} class="active"></li>
+                    {% else %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to={{paso.order}} ></li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </ol>
+        
+        <div class="carousel-inner pb-5" style="background: #f9f9f9 !important; padding-bottom:5% !important">
+            {% for paso in pasos %}
+                {% if paso.language == lan %}
+                    {% if paso.order == 0 %}
+                        <div class="carousel-item active pt-4 pb-5" style="background: #f9f9f9 !important">
+                            <div class="card text-center align-middle border-0 pt-3"  style="background: #f9f9f9 !important">
+                                <div class="row justify-content-center "style="background: #f9f9f9 !important">
+                                    <div class="card-body col-md-7"style="background: #f9f9f9 !important">
+                                        <p class="card-text" style=" margin-top:5%; margin-bottom:5%; border: 0 ;font-size:20px; background: #f9f9f9 !important">{{paso.content}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {% else %}
+                        <div class="carousel-item pt-4 pb-5" style="background: #f9f9f9 !important">
+                            <div class="card text-center align-middle border-0 pt-3"style="background: #f9f9f9 !important" >
+                                <div class="row justify-content-center "style="background: #f9f9f9 !important">
+                                    <div class="card-body col-md-7"style="background: #f9f9f9 !important">
+                                        <p class="card-text" style=" margin-top:5%; margin-bottom:5%; border: 0 ;font-size:20px; background: #f9f9f9 !important">{{paso.content}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+    </div>
+    {% if page_c.language == 'es'%}
+        <div id="filo2" class="row justify-content-center p-lg-5 px-0 m-0" style="margin: 0 auto !important" >
+            <div class="col-md-7 py-5 text-center">
+                <h2 class="titulo negrita azul text-center pt-2 pb-5 px-lg-5 px-0 m-0" style="font-size: 22px !important;"> DA EL SALTO AL MUNDO DIGITAL Y ACCEDE A NUEVAS FORMAS DE ENFOCAR TU NEGOCIO </h2>
+                <h4 class="text-center pt-2 pb-5 px-lg-5 px-0" style="font-size: 19px; font-weight: 400 !important; letter-spacing: 0; line-height: 28px; margin: 0;">  Es hora de creer en tu proyecto y de hacerlo crecer, y no hay nadie mejor que nosotros para ayudarte  a alcanzar lo que necesitas. </h4>
+                <a href="#"><button type="btn p-5" class="btn btn-info p-4" style="border-radius: 1em; color: white !important; text-align: center; text-decoration: none; background-color: #285E7A; display: inline-block !important; border: 2px solid #285E7A;  width: inherit;  padding: 5px 20px !important; margin: 0; margin-top:4%;  font-size: 14px !important; font-weight: 300; position: relative; opacity: 0.6; transition: ease all 0.4s; margin-bottom: 20px !important;}"> Haz realidad tu idea pulsando aquí </button> </a>
+            </div>
+        </div>
+    {% endif %}
+    {% if page_c.language == 'en'%}
+        <div id="filo3" class="row justify-content-center p-lg-5 px-0 m-0" style="margin: 0 auto !important" >
+            <div class="col-md-8 py-5 text-center">
+                <h2 class="text-center pt-2 pb-5 px-lg-5 px-0 m-0"> NO MORE EXCUSES</h2>
+                <h4 class="text-center pt-2 pb-5 px-lg-5 px-0" style="font-size: 19px;letter-spacing: 0; line-height: 28px; margin: 0;"> It's time: technology is not the future, it is the present. It is time to believe in your project, to make it grow and flourish, so that you don’t get left behind! We are more than capable to help you achieve it. </h4>
+                <a href="#"><button type="btn p-5" class="btn btn-info p-5" style="border-radius: 1em; color: white !important; text-align: center; text-decoration: none; background-color: #285E7A; display: inline-block !important; border: 2px solid #285E7A;  width: inherit;  padding: 5px 20px !important; margin: 0;  margin-top:4%; font-size: 14px !important; font-weight: 300; position: relative; opacity: 0.6; transition: ease all 0.4s; margin-bottom: 20px !important;}"> Start to create your idea clicking here </button> </a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

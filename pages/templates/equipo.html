@@ -1,0 +1,85 @@
+{% load static %}
+
+
+{% block content %}
+    
+    <div>
+        
+        {% include 'cabecera.html'%}
+        
+        
+        
+        <div class="container-fluid justify-content-center px-lg-5 px-0">
+            <div class="row px-lg-5 px-0 m-0">
+                {% for persona in equipo %}
+                    
+                    
+                    
+                        
+                    {% if page_c.language == persona.language %}
+                        
+                        {% if persona.order >= 0 and persona.order <= 1%}
+                            <div class="col-md ">
+                                <div class="card border-0 "style='background: #f9f9f9'>
+                                    <div class="card-body">
+                                        <div>
+                                            <img id="imgPro" class="card-img-top m-0" onmouseout="this.src='{{persona.image.url}}';" onmouseover="this.src='{{persona.image_perfil.url}}';" src="{{persona.image.url}}" alt="Card image cap" > 
+                                        </div>
+                                        
+                                        <p class="card-title text-center py-0 px-0" style=" font-weight: 400; font-size: 23px; letter-spacing: 2.38px; margin-bottom: 0; margin-top: 0.5em; ">{{persona.title}}</p>  
+                                        <p class="card-text text-center py-0 px-0" style="font-size: 12px; text-transform: uppercase; font-weight: bold;">{{persona.content}}</p>   
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                   {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row justify-content-md-center px-lg-5 px-0 m-0">
+                {% for persona in equipo %}
+                    
+                    
+                    
+                        
+                    {% if page_c.language == persona.language %}
+                        
+                        {% if persona.order > 1 %}
+                            <div class="col-lg-3">
+                                <div class="card border-0"style='background: #f9f9f9'>
+                                    <div class="card-body">
+                                        <div style="paddig-left:10%; padding-rigth:10% ">
+                                            <img id="imgPro" class="card-img-top m-0" onmouseout="this.src='{{persona.image.url}}';" onmouseover="this.src='{{persona.image_perfil.url}}';" src="{{persona.image.url}}" alt="Card image cap" > 
+                                        </div>
+                                        <p class="card-title text-center py-0" style=" font-weight: 400; font-size: 23px; letter-spacing: 2.38px; margin-bottom: 0; margin-top: 0.5em;">{{persona.title}}</p>  
+                                        <p class="card-text text-center py-0" style="font-size: 12px; text-transform: uppercase; font-weight: bold;">{{persona.content}}</p>   
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                   {% endif %}
+                {% endfor %}
+            </div>            
+                        
+                
+            </div>
+        </div>
+        <div id="contacto2" class="row justify-content-center py-5 px-0 mx-0" style="padding-top:8% !important; padding-bottom: 8% !important">
+            <div id="sobrefondocontact" class="container-fluid">
+                <div class="col pt-5 pb-5">
+                    {% if page_c.language == 'es'%}
+                        <h3 class="text-center py-0">...y una red de</h3>
+                        <h1 class="text-center py-0">más de 47 personas</h1>
+                        <h2 class="text-center py-0">de confianza que colaboran con nosotros</h2>
+                    {% endif %}
+                    {% if page_c.language == 'en'%}
+                        <h3 class="text-center py-0">...and a network</h3>
+                        <h1 class="text-center py-0">of over 47 trustworthy</h1>
+                        <h2 class="text-center py-0">people working with us.</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+{% endblock %}

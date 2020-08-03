@@ -1,0 +1,30 @@
+{% load static %}
+{% block content %}
+    <div class="pb-5">
+        {% include 'cabecera.html'%}
+        <div id="contserv" class="container-fluid justify-content-center " style="width:83%">
+            <div id="rowserv" class="row px-5 pb-5">
+                
+                {% for category in categoriesSer %}
+                    {% for servicio in tiposervicios %}
+                        {% if category.0 == servicio.id and page_c.language == servicio.language %}
+                            <div class="col-12 col-md-6 col-lg-3 py-2 px-lg-2">
+                                <div id="cardserv" class="card px-0 py-0 mx-2 my-0" style="max-width: 290px; border-radius: 1em; background-color: #FFFFFF; box-shadow: 0 0 3em 0 rgba(0,0,0,0.15); text-align: center; vertical-align: top; width: 100%;">
+                                    <img id="imgSer" class="card-img-top mt-4 mb-2" src="{{servicio.image.url}}" alt="Card image cap"  >
+                                    <div class="card-body pb-2 px-2 pt-0">
+                                        <h5 class="card-title text-center p-0 pt-2 m-0 pb-2" style="font-weight: bold; font-size:16px">{{servicio.title}}</h5> 
+                                        <p class="card-title text-center px-0 pb-3 pt-1 m-0" style="font-size:14px">{{servicio.content}}</p> 
+                                        
+                                        <a href="{% url 'pagina2' page_c.language page_c.slug category.3 %}"><button type="button" class="btn btn-info" style="background: #285E7A; border:0;color: white; opacity: 0.6; border-radius: 1.2em; padding: 0.4em 1em; text-decoration: none; transition: ease all 0.4s; margin-bottom: 10px; margin-top: 0; font-size: 16px; }"> + info </button> </a>
+                                        </button>  
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

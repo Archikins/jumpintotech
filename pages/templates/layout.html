@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="authoring-tool" content="Adobe_Animate_CC">
+        <link rel="icon" href="{% static 'images/favicon_jump.png' %}">
+    
+        <title>
+            {{page_c}}
+            | Jump into tech
+        </title>
+        <link rel="profile" href="http://www.w3.org/1999/xhtml/vocab">
+        <link rel='stylesheet' type='text/css' href='{% static 'css/styles.css'%}' />
+    
+        {# Cargamos la librería #}
+        {% load bootstrap4 %}
+        
+        {# CSS Bootstrap #}
+        {% bootstrap_css %}
+
+        <script type="text/javascript" src="{{ STATIC_URL }} /static/js/jquery-3.5.1.js">
+        </script>
+        
+        
+    </head>
+    {% if page_c.slug == "inicio" or page_c.slug == "home" %}
+        <body onload="init();" style="margin:0px;">
+    {% else %}
+        <body>
+    {% endif %}
+        {% block header %}
+            {% if page_c.image %}
+                <header id='cabecera1' role="banner" class="content-can sticky-top" style="margin: 0 auto; background-image: url('{{page_c.image.url}}'); padding-left: 0 !important; padding-right: 0 !important; background-image: no-repeat; background-image: fixed; background-image: center; background-size: cover; ">
+            {% else %} 
+                <header id='cabecera1' role="banner" class="content-can sticky-top" style="margin: 0 auto; padding-left: 0 !important; padding-right: 0 !important; background-image: no-repeat; background-image: fixed; background-image: center; background-size: cover; ">
+            {% endif %}  
+                {% if page_c.slug == 'contacto' or page_c.slug == 'contact'%}
+                    <div id="sobrefondo2"> 
+                {% else %}
+                    <div id="sobrefondo">
+                {% endif %}
+                        <div class="d-none d-md-none d-lg-block">
+                            {% if slug == "inicio" or slug == "home"%}
+                                {% if page_c.language == 'es' %}
+                                    <a href="{{ STATIC_URL }} /es/inicio/"><img id="espana" src="{% static 'images/espanol.png' %}" alt="Logo Thing main logo"></a>
+                                    <a href="{{ STATIC_URL }} /en/home/"><img id="ingles" style="opacity:0.5" src="{% static 'images/ingles.png' %}" alt="Logo Thing main logo"></a>  
+                                    <img id="logo" src="{% static 'images/jumpintotech-logo.png' %}" href='' width="150" alt="Logo Thing main logo">  
+                                {% endif %}
+                                {% if page_c.language == 'en' %}
+                                    <a href="{{ STATIC_URL }} /es/inicio/"><img id="espana" style="opacity:0.5" src="{% static 'images/espanol.png' %}" alt="Logo Thing main logo"></a>
+                                    <a href="{{ STATIC_URL }} /en/home/"><img id="ingles"  src="{% static 'images/ingles.png' %}" alt="Logo Thing main logo"></a>  
+                                    <img id="logo" src="{% static 'images/jumpintotech-logo.png' %}" href='' width="150" alt="Logo Thing main logo">  
+                                {% endif %}
+
+
+                            {% else %}
+                                {% if page_c.language == 'es' %}  
+                                    <a href="/es/inicio/"><img id="logo" src="{% static 'images/jumpintotech-logo.png' %}" href='' width="120" alt="Logo Thing main logo"> </a>
+                                {% endif %}
+                                {% if page_c.language == 'en' %}  
+                                    <a href="/en/home/"><img id="logo" src="{% static 'images/jumpintotech-logo.png' %}" href='' width="120" alt="Logo Thing main logo"> </a>
+                                {% endif %}
+                            {% endif %}
+                        
+                    </div>
+                    
+                        
+                    
+                    <nav id="menu3" class="navscroll navbar navbar-expand-lg sticky-top navbar-dark bg-none pb-3" >
+                        {% if page_c.language == 'es' %} 
+                            <a class="navbar-brand d-block d-md-block d-lg-none " href="/es/inicio/"><img id="logom" src="{% static 'images/jumpintotech-logo.png' %}" width="120" alt="Logo Thing main logo"></a>
+                        {% endif %}
+                        {% if page_c.language == 'en' %} 
+                            <a class="navbar-brand d-block d-md-block d-lg-none " href="/en/home/"><img id="logom" src="{% static 'images/jumpintotech-logo.png' %}" width="120" alt="Logo Thing main logo"></a>
+                        {% endif %}
+                        <button class="navbar-toggler border-0 " type="button" onclick="openNav()">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        
+                            <ul class='navbar-nav mr-auto mx-auto float-right' >
+                                {% for page in pages %}
+                                    
+                                    {% if page_c.language == page.3  %}
+                                        {% if page_c.slug == page.2 %}
+                                            <li class="nav-item pl-5">
+                                                <a class="nav.link active" href={% url 'Pagina' page.3 page.2 %} style="color: white">{{page.1}}</a>                            
+                                            </li>
+                                        {% else %}
+                                            <li class="nav-item pl-5">
+                                                <a class="nav.link" href={% url 'Pagina' page.3 page.2 %} >{{page.1}}</a>                            
+                                            </li>
+                                        {% endif %}
+                                        
+                                    {% endif %}
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                        <div id="myNav" class="overlay">
+
+                            <!-- Button to close the overlay navigation -->
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+                            <!-- Overlay content -->
+                            <div class="overlay-content">
+                                <ul >
+                                    {% for page in pages %}
+                                        {% if lan == page.3 %}
+                                            <li>
+                                                <a class="nav.link" href="{% url 'Pagina' page.3 page.2 %}">{{page.1}}</a>                            
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            <script>
+                                /* Open when someone clicks on the span element */
+                                function openNav() {
+                                    document.getElementById("myNav").style.width = "100%";
+                                }
+
+                                /* Close when someone clicks on the "x" symbol inside the overlay */
+                                function closeNav() {
+                                    document.getElementById("myNav").style.width = "0%";
+                                }
+                            </script>
+                            </div>
+                        </div>
+
+                        
+
+                        
+                    </nav>
+                </div>
+
+            </header>
+        {% endblock %}
+            
+        </header>
+        
+        </div>
+        
+
+        <div id='content' style='background: #f9f9f9'>
+            
+            {{page.content|safe}} 
+            {% if page_c.slug == "proyectos" or page_c.slug == "projects" %}
+                {% if category_id %}
+                    {% include 'categoryProyects.html'%}
+                {% else %}
+                    {% include 'Proyectos.html'%}
+                {% endif %}       
+            {% endif %}
+            
+            {% if page_c.slug == "como-trabajamos" or page_c.slug == "our-philosophy" %}
+                {% include 'filosofia.html'%}
+            {% endif %}
+            {% if page_c.slug == "services" or page_c.slug == "servicios" %}
+                {% if category_id %}
+                    {% include 'categoryServices.html'%}
+                {% else %}
+                    {% include 'servicios.html'%}
+                {% endif %}       
+            {% endif %}
+            {% if page_c.slug == "equipo" or page_c.slug == "team" %}
+                {% include 'equipo.html'%}
+            {% endif %}
+            {% if page_c.slug == "news" or page_c.slug == "noticias" %}
+                {% if category_id%}
+                    {% include 'blog.html'%}
+                {% else %}
+                    {% include 'noticias.html'%}
+                {% endif %}  
+            {% endif %}
+            {% if page_c.slug == "contacto" or page_c.slug == "contact" %}
+                {% include 'contacto.html'%}
+            {% endif %}
+            
+        </div>
+
+        <footer  class="container-fluid py-1  bg-dark text-white-50" style="z-index: 50 !important;">
+            <div class="row py-0 " style="z-index: 50 !important;">
+                <div class="col-md-7 col-7 col-xl-10  col-lg-10 justify-content-start align-middle " style="z-index: 50 !important;">
+                    <ul class="nav align-middle my-0-auto" style="z-index: 50 !important;">
+                        {% if page_c.language == 'es'%}
+                            <li class="nav-item align-middle my-0-auto" style="z-index: 50 !important;">
+                                <a class="nav-link active text-white my-0-auto" href="#" style="font-size: 12px;z-index: 50 !important;">Aviso Legal</a>
+                            </li>
+                            <li class="nav-item align-middle my-0-auto" style="z-index: 50 !important;">
+                                <a class="nav-link text-white my-0-auto" href="#" style="font-size: 12px; z-index: 50 !important;">Política de Privacidad</a>
+                            </li>
+                        {% endif %}
+                        {% if page_c.language == 'en'%}
+                            <li class="nav-item align-middle my-0-auto" style="z-index: 50 !important;">
+                                <a class="nav-link active text-white my-0-auto" href="#" style="font-size: 12px;z-index: 50 !important;">Legal Warning</a>
+                            </li>
+                            <li class="nav-item align-middle my-0-auto" style="z-index: 50 !important;">
+                                <a class="nav-link text-white my-0-auto" href="#" style="font-size: 12px; z-index: 50 !important;">Privacy policy</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-5 col-5 col-xl-2 col-lg-2 text-center align-middle" style="z-index: 50 !important;">
+                    <div class="container justify-content-end align-middle p-2" style="z-index: 50 !important;">
+                        <small class="py-3 justify-sm-center text-nowrap text-white" style="font-size: 12px; z-index: 50 !important;">Diseño Web by</small>
+                        <img class="img fluid float-right "src="{% static 'images/jumpintotech-logo.png' %}" style="z-index: 50 !important;" href='' width="80" alt="Logo Thing main logo"> 
+                    </div>
+                </div>
+        </footer>
+
+        {% bootstrap_javascript jquery='full' %}
+    </body>
+</html>

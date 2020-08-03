@@ -1,0 +1,89 @@
+{% load static %}
+
+
+{% block content %}
+
+    {% if page_c.language == "es" %}
+        <video autoplay="autoplay" loop="loop" id="video_background" preload="auto" volume="50">
+            <source src="{% static 'images/notebook_0.mp4'%}" type="video/mp4">
+        </video>
+        
+        <div class="container-fluid" style="background: rgba(6, 66, 122, 0.438) !important; z-index: 50 !important">
+        
+            <div class="container-fluid" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                <div class="row justify-content-center pt-4" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                    <h1 class="titulo negrita azul" style="text-transform: uppercase; z-index: 50 !important; color:white"> {{page_c.subtitle}} </h1>
+                </div>
+                <div class="row justify-content-center p-0" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                    <h5 class="subtitulo negrita azul text-center" style="background: rgb(0,0,0,0); z-index: 50 !important; color:white"> {{page_c.frase}} </h5>
+                </div>
+                
+              
+                <div class="row justify-content-center py-0" style="background: rgb(0,0,0,0); z-index: 50 !important"> 
+                    <div class="col-md-5" style="z-index: 50 !important">
+                        <p class="text-center p5" style="font-size: 19px !important; letter-spacing: 0; line-height: normal; background: rgb(0,0,0,0); z-index: 50 !important; color:white !Important"> {{page_c.description|safe}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center py-0">
+                <p style="z-index: 50 !important;font-size: 20px;font-weight: 300; color:white">&nbsp;<a href="tel:611142751" style="color:white">+ 34 611 142 751</a></p>
+            </div>
+            <div class="row justify-content-center pb-5" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                
+
+                <form action="" method="POST" id="form_contacto" style="padding:1%; background: rgb(0,0,0,0); z-index: 50 !important">
+                
+                    {% csrf_token %}
+                    {{form.as_ul}}
+                    
+                    <div class="form-row justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="    color: #fff; background-color: #337ab7; border-color: #2e6da4;">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    {% if page_c.language == "en" %}
+        <video autoplay="autoplay" loop="loop" id="video_background" preload="auto" volume="50">
+            <source src="{% static 'images/notebook_0.mp4'%}" type="video/mp4">
+        </video>
+        
+        <div class="container-fluid" style="background: transparent">
+        
+            <div class="container-fluid" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                <div class="row justify-content-center pt-4" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                    <h1 class="titulo negrita azul" style="text-transform: uppercase; z-index: 50 !important; color:white"> {{page_c.subtitle}} </h1>
+                </div>
+                <div class="row justify-content-center p-0" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                    <h5 class="subtitulo negrita azul text-center" style="background: rgb(0,0,0,0); z-index: 50 !important; color:white"> {{page_c.frase}} </h5>
+                </div>
+              
+                <div class="row justify-content-center py-0" style="background: rgb(0,0,0,0); z-index: 50 !important"> 
+                    <div class="col-md-5" style="z-index: 50 !important">
+                        <p class="text-center p5" style="font-size: 19px !important; letter-spacing: 0; line-height: normal; background: rgb(0,0,0,0); z-index: 50 !important; color:white !Important"> {{page_c.description|safe}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center py-0">
+                <p style="z-index: 50 !important;font-size: 20px;font-weight: 300; color:white">&nbsp;<a href="tel:611142751" style="color:white">+ 34 611 142 751</a></p>
+            </div>
+            <div class="row justify-content-center pb-5" style="background: rgb(0,0,0,0); z-index: 50 !important">
+                
+
+                <form action="" method="POST" id="form_contacto" style="padding:1%; background: rgb(0,0,0,0); z-index: 50 !important">
+                
+                    {% csrf_token %}
+                    {{form.as_ul}}
+                    
+                    <div class="form-row justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="    color: #fff; background-color: #337ab7; border-color: #2e6da4;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

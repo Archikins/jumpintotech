@@ -1,0 +1,25 @@
+{% load static %}
+
+
+{% block content %}
+    {% for noticia in noticias %}
+        
+        {% if category_id == noticia.title|slugify %}
+            <div class="container-fluid justify-content-center py-5">
+                <div class="row py-3 px-5 justify-content-center">
+                    <div class="col-lg-8 col-12">
+                        <div class="card" >
+                            <img  class="card-img" src="{{noticia.image.url}}" alt="Card image cap" style="min-height: 10rem !important">
+                            <div class="card-body px-5 mx-auto">
+                                <h5 class="card-text text-center pb-1 pt-0 px-5" style="color: #285E7A;  font-size: 16px;  line-height: 1.5em;text-align: center;font-weight: 400; ">{{noticia.entry|safe}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+

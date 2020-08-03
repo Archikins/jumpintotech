@@ -1,0 +1,352 @@
+{% load static %}
+
+
+{% block content %}
+    
+    <div class="container-fluid d-lg-block d-none">
+        
+        <div class="container-fluid">
+            <div class="row justify-content-center pt-4">
+                <h1 class="titulo negrita azul" style="text-transform: uppercase;"> {{page_c.subtitle}} </h1>
+            </div>
+            <div class="row justify-content-center p-0">
+                <h5 class="subtitulo negrita azul text-center"> {{page_c.frase}} </h5>
+            </div>
+
+        </div>
+
+       
+        <ul id="news" class="nav nav-tabs nav-justified border-0" id="myTab" role="tablist">
+            {% for category in categoriesNot %}
+                {% for tipos in tiponoticia %}
+                    {% if category.1 == tipos.title and page_c.language == tipos.language and page_c.language == category.2%}
+                        {% if tipos.order == 1%}
+                            <li class="nav-item border-0" style="font-size: 24px; border: none !important;transition: ease all 0.4s;">
+                                <a class="nav-item nav-link active border-0" id="{{tipos.title}}-tab" data-toggle="tab" href="#{{tipos.title}}" role="tab" aria-controls="{{tipos.title}}" aria-selected="true">{{tipos.title}}</a>
+                            </li>
+                        {% endif %}
+                        {% if tipos.order > 1%}
+                            <li class="nav-item border-0" style="font-size: 24px; border: none !important;transition: ease all 0.4s;">
+                                <a class="nav-item nav-link border-0"  id="{{tipos.title}}-tab" data-toggle="tab" href="#{{tipos.title}}" role="tab" aria-controls="{{tipos.title}}" aria-selected="false">{{tipos.title}}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <div class="container-fluid" style="height:50px; background-color:white">
+        </div>
+        <div class="tab-content " id="myTabContent">
+            {% for category in categoriesNot %}
+                {% for tipos in tiponoticia %}
+                    {% if category.1 == tipos.title and page_c.language == tipos.language and page_c.language == category.2%}
+                        {% if tipos.order == 1%}
+                            
+                            <div class="tab-pane fade show active " id='{{tipos.title}}' role="tabpanel" aria-labelledby="{{tipos.title}}-tab">
+                                {% for noticia in noticias %}
+                                    {% if tipos.id == noticia.categories.id %}
+                                        
+                                        {% if noticia.order|divisibleby:2 == False %}
+                                            <div class="row justify-content-center py-2 " style="background-color:white">
+                                                <div class="col-md-7 justify-content-center">
+                                                    <div class="card border-0" style="background-color: white;border-radius: 1em;margin-bottom: 20px;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);">
+                                                        <div class="row  border-0" style="border-radius: 1em" >
+                                                            <div class="col-md-6  " style="background-image: linear-gradient(to rigth, #9f9f9f, rgba(255,255,255,0.7));">
+                                                                <div id="sombra-news-izquierda" style="position: absolute ; z-index:0 ; background: rgb(249,249,249); background: linear-gradient(270deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 100%);  background-position: right top; background-repeat: repeat-y;  position: absolute;  width: 100%; height: 100%;top: 0; ">                                                               
+                                                                </div>
+                                                                <img id="img-news-izquierda" src="{{noticia.image.url}}" class="img-fluid w-100 Border-0" style="margin-top: 0; width:100% !important; margin-bottom:0; border-top-left-radius: 1em; border-bottom-left-radius: 1em;">
+                                                            </div>
+                                                            <div class="col-md-6  px-3">
+                                                                <div class="card-block px-3">
+                                                                    <h4 id="title-news-izquierda" class="card-title" style="color: #285E7A !important; text-align: left; padding-top: 25px; padding-right: 20px; box-sizing: border-box; font-size: 18px; font-weight: 400;display: block; line-height: normal; padding-bottom: 20px; text-decoration: none; margin-left: -30%; z-index: 1 !important">{{noticia.title}}</h4>
+                                                                    <p id="contenido-news" class="card-text" style="font-weight: normal; color: #A6A6A6; text-align: left; padding-right: 20px; padding-left: 20px; box-sizing: border-box; font-size: 14px; padding-bottom: 0px;line-height: normal; margin-left: -30% ">{{noticia.content}} </p>
+                                                                    {% if page_c.language == 'es' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Ir a noticia</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Leer más</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if page_c.language == 'en' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Open news</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Read more</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="row justify-content-center py-2 " style="background-color:white">
+                                                <div class="col-md-7 justify-content-center">
+                                                    <div class="card border-0" style="background-color: white;border-radius: 1em;margin-bottom: 20px;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);}">
+                                                        <div class="row  border-0" style="border-radius: 1em" >
+                                                            <div class="col-md-6  px-3 pb-2" style="z-index: 1 ">
+                                                                <div class="card-block px-3">
+                                                                    <h4 id="title-news-izquierda" class="card-title" style="color: #285E7A !important; text-align: left; padding-top: 25px; padding-right: 20px; box-sizing: border-box; font-size: 18px; font-weight: 400;display: block; line-height: normal; padding-bottom: 20px; text-decoration: none; margin-right: -30% !important; z-index:1 !important">{{noticia.title}}</h4>
+                                                                    <p id="contenido-news" class="card-text" style="font-weight: normal; color: #A6A6A6; text-align: left; padding-right: 20px; padding-left: 20px; box-sizing: border-box; font-size: 14px; padding-bottom: 0px;line-height: normal;margin-right: -15% !important;">{{noticia.content}} </p>
+                                                                    {% if page_c.language == 'es' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10%; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Ir a noticia</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10% ; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Leer más</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if page_c.language == 'en' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10%; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Open News</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10% ; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Read More</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6" style="background-image: linear-gradient(to rigth, #9f9f9f, rgba(255,255,255,0.7));">
+                                                                <div id="sombra-news-derecha" style="position: absolute ; z-index:0 ; background: rgb(249,249,249); background: linear-gradient(90deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);  background-position: right top; background-repeat: repeat-y;  position: absolute;  width: 100%; height: 100%;top: 0; ">                                                               
+                                                                </div>
+                                                                <img id="img-news-izquierda" src="{{noticia.image.url}}" class="img-fluid Border-0" style="border-top-right-radius: 1em; min-height: 210px; border-bottom-right-radius: 1em; ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if tipos.order > 1%}
+                            
+                            <div class="tab-pane fade " id='{{tipos.title}}' role="tabpanel" aria-labelledby="{{tipos.title}}-tab">
+                                {% for noticia in noticias %}
+                                    {% if tipos.id == noticia.categories.id %}
+                                        {% if noticia.order|divisibleby:2 == False %}
+                                            <div class="row justify-content-center py-2 " style="background-color:white">
+                                                <div class="col-md-7 justify-content-center">
+                                                    <div class="card border-0" style="background-color: white;border-radius: 1em;margin-bottom: 20px;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);">
+                                                        <div class="row  border-0" style="border-radius: 1em" >
+                                                            <div class="col-md-6  " style="background-image: linear-gradient(to rigth, #9f9f9f, rgba(255,255,255,0.7));">
+                                                                <div id="sombra-news-izquierda" style="position: absolute ; z-index:0 ; background: rgb(249,249,249); background: linear-gradient(270deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 100%);  background-position: right top; background-repeat: repeat-y;  position: absolute;  width: 100%; height: 100%;top: 0; ">                                                               
+                                                                </div>
+                                                                <img id="img-news-izquierda" src="{{noticia.image.url}}" class="img-fluid w-100 Border-0" style="margin-top: 0; width:100% !important; margin-bottom:0; border-top-left-radius: 1em; border-bottom-left-radius: 1em;">
+                                                            </div>
+                                                            <div class="col-md-6  px-3">
+                                                                <div class="card-block px-3">
+                                                                    <h4 id="title-news-izquierda" class="card-title" style="color: #285E7A !important; text-align: left; padding-top: 25px; padding-right: 20px; box-sizing: border-box; font-size: 18px; font-weight: 400;display: block; line-height: normal; padding-bottom: 20px; text-decoration: none; margin-left: -30%; z-index: 200 !important">{{noticia.title}}</h4>
+                                                                    <p id="contenido-news" class="card-text" style="font-weight: normal; color: #A6A6A6; text-align: left; padding-right: 20px; padding-left: 20px; box-sizing: border-box; font-size: 14px; padding-bottom: 0px;line-height: normal; margin-left: -10% ">{{noticia.content}} </p>
+                                                                    {% if page_c.language == 'es' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Ir a noticia</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Leer más</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if page_c.language == 'en' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Open news</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Read more</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="row justify-content-center py-2 " style="background-color:white">
+                                                <div class="col-md-7 justify-content-center">
+                                                    <div class="card border-0" style="background-color: white;border-radius: 1em;margin-bottom: 20px;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);}">
+                                                        <div class="row  border-0" style="border-radius: 1em" >
+                                                            <div class="col-md-6  px-3 pb-2" style="z-index: 14000 ">
+                                                                <div class="card-block px-3">
+                                                                    <h4 id="title-news-izquierda" class="card-title" style="color: #285E7A !important; text-align: left; padding-top: 25px; padding-right: 20px; box-sizing: border-box; font-size: 18px; font-weight: 400;display: block; line-height: normal; padding-bottom: 20px; text-decoration: none; margin-right: -30% !important; z-index:150000 !important">{{noticia.title}}</h4>
+                                                                    <p id="contenido-news" class="card-text" style="font-weight: normal; color: #A6A6A6; text-align: left; padding-right: 20px; padding-left: 20px; box-sizing: border-box; font-size: 14px; padding-bottom: 0px;line-height: normal;margin-right: -10% !important;">{{noticia.content}} </p>
+                                                                    {% if page_c.language == 'es' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10%; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Ir a noticia</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10% ; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Leer más</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                    {% if page_c.language == 'en' %}
+                                                                        {% if noticia.categories.title == "News" %}
+                                                                            <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10%; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Open News</a>
+                                                                        {% endif %}
+                                                                        {% if noticia.categories.title == "Blog" %}
+                                                                            <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.title|slugify %}" class="btn btn-primary" style="border:none !important;float:right;  margin-right: -10% ; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s; z-index:10 !important">Read More</a>
+                                                                        {% endif %}
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6" style="background-image: linear-gradient(to rigth, #9f9f9f, rgba(255,255,255,0.7));">
+                                                                <div id="sombra-news-derecha" style="position: absolute ; z-index:0 ; background: rgb(249,249,249); background: linear-gradient(90deg, rgba(255,255,255,1) 20%, rgba(255,255,255,0) 100%);  background-position: right top; background-repeat: repeat-y;  position: absolute;  width: 100%; height: 100%;top: 0; ">                                                               
+                                                                </div>
+                                                                <img id="img-news-izquierda" src="{{noticia.image.url}}" class="img-fluid Border-0" style="border-top-right-radius: 1em; min-height: 210px; border-bottom-right-radius: 1em; ">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        
+       
+        
+    </div> 
+    <div class="container-fluid d-lg-none d-block">
+        
+        <div class="container-fluid">
+            <div class="row justify-content-center pt-4">
+                <h1 class="titulo negrita azul" style="text-transform: uppercase;"> {{page_c.subtitle}} </h1>
+            </div>
+            <div class="row justify-content-center p-0">
+                <h5 class="subtitulo negrita azul text-center"> {{page_c.frase}} </h5>
+            </div>
+
+        </div>
+
+       
+        <ul id="news" class="nav nav-tabs nav-justified border-0" id="myTab" role="tablist">
+            {% for category in categoriesNot %}
+                {% for tipos in tiponoticia %}
+                    {% if category.1 == tipos.title and page_c.language == tipos.language and page_c.language == category.2%}
+                        {% if tipos.order == 1%}
+                            <li class="nav-item border-0" style="font-size: 24px; border: none !important;transition: ease all 0.4s;">
+                                <a class="nav-item nav-link active border-0 py-0" id="{{tipos.title}}2-tab" data-toggle="tab" href="#{{tipos.title}}2" role="tab" aria-controls="{{tipos.title}}2" aria-selected="true">{{tipos.title}}</a>
+                            </li>
+                        {% endif %}
+                        {% if tipos.order > 1%}
+                            <li class="nav-item border-0" style="font-size: 24px; border: none !important;transition: ease all 0.4s;">
+                                <a class="nav-item nav-link border-0 py-0"  id="{{tipos.title}}2-tab" data-toggle="tab" href="#{{tipos.title}}2" role="tab" aria-controls="{{tipos.title}}2" aria-selected="false">{{tipos.title}}</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <div class="container-fluid" style="height:50px; background-color:white">
+        </div>
+        <div class="tab-content " id="myTabContent">
+            {% for category in categoriesNot %}
+                {% for tipos in tiponoticia %}
+                    {% if category.1 == tipos.title and page_c.language == tipos.language and page_c.language == category.2%}
+                        {% if tipos.order == 1%}
+                            
+                            <div class="tab-pane fade show active " id='{{tipos.title}}2' role="tabpanel" aria-labelledby="{{tipos.title}}-tab">
+                                {% for noticia in noticias %}
+                                    {% if tipos.id == noticia.categories.id %}
+                                        <div class="row justify-content-center py-2 " style="background-color:white">
+                                            <div class="col-md-7 justify-content-center">
+                                                <div class="card border-0" style="background-color: white;border-radius: 1em;margin-bottom: 20px;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);">
+                                                    <div class="row  border-0" style="border-radius: 1em" >
+                                                        <div class="col-md-6  " >
+                                                            <img id="img-news-izquierda" src="{{noticia.image.url}}" class="img-fluid w-100 Border-0" style="margin-top: 0; width:100% !important; margin-bottom:0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                                                        </div>
+                                                        <div class="col-md-6  px-3 pb-3">
+                                                            <div class="card-block px-3 pb-3">
+                                                                <h4 id="title-news-izquierda" class="card-title" style="color: #285E7A !important; text-align: left; padding-top: 25px; padding-right: 20px; box-sizing: border-box; font-size: 18px; font-weight: 400;display: block; line-height: normal; padding-bottom: 20px; text-decoration: none; margin-left: -30%; z-index: 200 !important">{{noticia.title}}</h4>
+                                                                <p id="contenido-news" class="card-text" style="font-weight: normal; color: #A6A6A6; text-align: left; padding-right: 20px; padding-left: 20px; box-sizing: border-box; font-size: 14px; padding-bottom: 0px;line-height: normal; margin-left: -10% ">{{noticia.content}} </p>
+                                                                {% if page_c.language == 'es' %}
+                                                                    {% if noticia.categories.title == "News" %}
+                                                                        <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Ir a noticia</a>
+                                                                    {% endif %}
+                                                                    {% if noticia.categories.title == "Blog" %}
+                                                                        <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.id %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Leer más</a>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                {% if page_c.language == 'en' %}
+                                                                    {% if noticia.categories.title == "News" %}
+                                                                        <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Open news</a>
+                                                                    {% endif %}
+                                                                    {% if noticia.categories.title == "Blog" %}
+                                                                        <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.id %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Read more</a>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if tipos.order > 1%}
+                            
+                            <div class="tab-pane fade" id='{{tipos.title}}2' role="tabpanel" aria-labelledby="{{tipos.title}}-tab">
+                                
+                                {% for noticia in noticias %}
+                                    {% if tipos.id == noticia.categories.id %}
+                                        
+                                        <div class="row justify-content-center py-2 " style="background-color:white">
+                                            <div class="col-md-7 justify-content-center">
+                                                <div class="card border-0" style="background-color: white;border-radius: 1em;margin-bottom: 20px;box-shadow: 0 0 3em 0 rgba(0,0,0,0.15);">
+                                                    <div class="row  border-0" style="border-radius: 1em" >
+                                                        <div class="col-md-6  ">
+                                                            <img id="img-news-izquierda" src="{{noticia.image.url}}" class="img-fluid w-100 Border-0" style="margin-top: 0; width:100% !important; margin-bottom:0; border-top-left-radius: 1em; border-top-right-radius: 1em;">
+                                                        </div>
+                                                        <div class="col-md-6  px-3 pb-3">
+                                                            <div class="card-block px-3 pb-3">
+                                                                <h4 id="title-news-izquierda" class="card-title" style="color: #285E7A !important; text-align: left; padding-top: 25px; padding-right: 20px; box-sizing: border-box; font-size: 18px; font-weight: 400;display: block; line-height: normal; padding-bottom: 20px; text-decoration: none; margin-left: -30%; z-index: 200 !important">{{noticia.title}}</h4>
+                                                                <p id="contenido-news" class="card-text" style="font-weight: normal; color: #A6A6A6; text-align: left; padding-right: 20px; padding-left: 20px; box-sizing: border-box; font-size: 14px; padding-bottom: 0px;line-height: normal; margin-left: -10% ">{{noticia.content}} </p>
+                                                                {% if page_c.language == 'es' %}
+                                                                    {% if noticia.categories.title == "News" %}
+                                                                        <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Ir a noticia</a>
+                                                                    {% endif %}
+                                                                    {% if noticia.categories.title == "Blog" %}
+                                                                        <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.id %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Leer más</a>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                {% if page_c.language == 'en' %}
+                                                                    {% if noticia.categories.title == "News" %}
+                                                                        <a id="bt-news-derecha" href="{{noticia.url}}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Open news</a>
+                                                                    {% endif %}
+                                                                    {% if noticia.categories.title == "Blog" %}
+                                                                        <a id="bt-news-derecha" href="{% url 'pagina2' page_c.language page_c.slug noticia.id %}" class="btn btn-primary" style="border:none !important; float:right; background-color: #285E7A; color: white; text-decoration: none; border-radius: 1em;font-size: 14px; padding: 5px 20px; display: inline-block; opacity: 0.4;transition: ease all 0.4s;">Read more</a>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+                                        
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+
+        
+       
+        
+    </div>     
+{% endblock %}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="53px" height="38px" viewBox="0 0 53 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard-Copy-7" transform="translate(-874.000000, -348.000000)" fill="#2A6489" fill-rule="nonzero">
+            <g id="seccion_1" transform="translate(354.000000, 337.000000)">
+                <g id="iconos" transform="translate(159.000000, 0.000000)">
+                    <g id="solución" transform="translate(351.000000, 11.000000)">
+                        <g id="tick" transform="translate(10.000000, 0.000000)">
+                            <path d="M51.7384726,0.757819821 C50.7231535,-0.252606607 49.0770305,-0.252606607 48.0615083,0.757819821 L16.9119214,31.754505 L4.93852974,19.8400029 C3.92321066,18.8295764 2.27708767,18.8296775 1.26156548,19.8400029 C0.246144841,20.8503282 0.246144841,22.488355 1.26156548,23.4987814 L15.0734392,37.2425212 C16.0884536,38.2528466 17.7357954,38.2521392 18.7504035,37.2425212 L51.7384726,4.41669944 C52.7538932,3.40637407 52.7537917,1.76824625 51.7384726,0.757819821 Z" id="Path"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
