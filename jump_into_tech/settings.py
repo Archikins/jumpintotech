@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,7 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'jump_into_tech.urls'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -93,6 +94,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Heroku: Update database configuration from $DATABASE_URL.
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -131,10 +137,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+STATICFILES_DIRS= (os.path.join(BASE_DIR, "media"),)
+
+# The URL to use when referring to static files (where they will be served from)
+STATIC_URL = '/static/'
 RECAPTCHA_PUBLIC_KEY = "6LfTsqcZAAAAAHST7B0MoUfpBjpJK2RPPH83X113"
 RECAPTCHA_PRIVATE_KEY = "6LfTsqcZAAAAABzlRP8XC393bInyQH3sHZeCUSa5"
 RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:8000'}
